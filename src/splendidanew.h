@@ -16,12 +16,9 @@
 #define M5ATOM
 
 #include <Arduino.h>
-#include "OneButton.h" // https://github.com/mathertel/OneButton
 #include <FastLED.h>
-#include <Smooth.h>
 #include <TaskScheduler.h>
-#include <driver/gpio.h>
-#include <driver/adc.h>
+#include "encoders.h"
 
 // Emulator
 #ifndef M5ATOM
@@ -35,12 +32,8 @@
 
 // Atom Matrix M5
 #ifdef M5ATOM
-#define DATA_PIN 26           // set your leds datapin   change to 32 for m5 atom lite
-#define ATOMLED_PIN 21        // set your leds datapin   change to 27 for m5 atom lite
-#define BUTTON_PIN_INPUT 39   // button pin              change to 39 for m5 atom lite
-#define EXTRA_BUTTON_PIN 22   // button pin              change to 39 for m5 atom lite
-#define BRIGHTNESS_POT_PIN 32 // Brightness potentiometer pin
-#define SPEED_POT_PIN 33      // Speed potentiometer pin
+#define DATA_PIN 26    // set your leds datapin   change to 32 for m5 atom lite
+#define ATOMLED_PIN 21 // set your leds datapin   change to 27 for m5 atom lite
 #endif
 
 #define LED_TYPE WS2812B // leds type
@@ -65,11 +58,6 @@
 #define BLEND_SPEED 16
 #define BLEND_INTERVAL_MS 40
 
-// Potentiometers
-#define SMOOTHED_SAMPLE_SIZE 10
-Smooth g_smoothedSpeedPot(SMOOTHED_SAMPLE_SIZE);
-Smooth g_smoothedBrightnessPot(SMOOTHED_SAMPLE_SIZE);
-
 uint8_t calculatePowerScaledBrightness(uint8_t targetBrightness);
 
 uint16_t g_lastSafeIndex = 256;
@@ -78,8 +66,6 @@ CRGB leds[NUM_LEDS + 1];
 CRGB g_statusLed[1];
 
 byte rain[(NUM_COLS_PLANAR + 2) * (NUM_ROWS_PLANAR + 2)];
-
-OneButton g_patternButton(BUTTON_PIN_INPUT, true);
 
 byte g_patternInitNeeded = 1;
 
@@ -141,10 +127,9 @@ Task _taskChangeToBrightness(10 * TASK_MILLISECOND, TASK_FOREVER, &changeToBrigh
 Task _taskRunPattern(1 * TASK_MILLISECOND, TASK_FOREVER, &runPattern);
 Task _taskChangePalette(SECONDS_PER_PALETTE *TASK_SECOND, TASK_FOREVER, &changePalette);
 Task _taskChangePattern(SECONDS_PER_PATTERN *TASK_SECOND, TASK_FOREVER, &changePattern);
-Task _taskHandleButton(10 * TASK_MILLISECOND, TASK_FOREVER, &handleButton);
-Task _taskReadPotentiometers(100 * TASK_MILLISECOND, TASK_FOREVER, &readPotentiometers);
 Task _taskBlendPalette(BLEND_INTERVAL_MS *TASK_MILLISECOND, TASK_FOREVER, &blendPalette);
 Task _taskFade(10 * TASK_MILLISECOND, TASK_FOREVER, &fade);
+Task _taskReadEncoders(10 * TASK_MILLISECOND, TASK_FOREVER, &readEncoders);
 
 #include "patterns.h"
 
