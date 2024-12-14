@@ -122,6 +122,9 @@ void startFadeOut();
 void startFadeIn();
 void fade();
 
+void readEncoders();
+void encoderSetup();
+
 Scheduler _runner;
 Task _taskChangeToBrightness(10 * TASK_MILLISECOND, TASK_FOREVER, &changeToBrightness);
 Task _taskRunPattern(1 * TASK_MILLISECOND, TASK_FOREVER, &runPattern);
@@ -132,5 +135,6 @@ Task _taskFade(10 * TASK_MILLISECOND, TASK_FOREVER, &fade);
 Task _taskReadEncoders(10 * TASK_MILLISECOND, TASK_FOREVER, &readEncoders);
 
 #include "patterns.h"
+#include "encoders.h"
 
 #endif
