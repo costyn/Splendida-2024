@@ -8,43 +8,37 @@
 
 void encoderSetup()
 {
-    uint8_t enc_cnt;
-
     Wire.begin(I2C_SDA_PIN, I2C_SCL_PIN); // Initialize I2C with custom pins
 
     pinMode(I2C_INT_PIN, INPUT);
 
-    // Reset of all the encoder ìs
-    for (enc_cnt = 0; enc_cnt < NUM_ENCODERS; enc_cnt++)
-    {
-        RGBEncoder[enc_cnt].reset();
-    }
+    RGBEncoder.reset();
 
-    for (enc_cnt = 0; enc_cnt < NUM_ENCODERS; enc_cnt++)
-    {
-        RGBEncoder[enc_cnt].begin(
-            i2cEncoderLibV2::INT_DATA | i2cEncoderLibV2::WRAP_DISABLE | i2cEncoderLibV2::DIRE_RIGHT | i2cEncoderLibV2::IPUP_ENABLE | i2cEncoderLibV2::RMOD_X1 | i2cEncoderLibV2::RGB_ENCODER);
-        RGBEncoder[enc_cnt].id = enc_cnt;
-        RGBEncoder[enc_cnt].writeRGBCode(0);
-        RGBEncoder[enc_cnt].writeFadeRGB(3);             // Fade enabled with 3ms step
-        RGBEncoder[enc_cnt].writeAntibouncingPeriod(25); // 250ms of debouncing
-        RGBEncoder[enc_cnt].writeDoublePushPeriod(100);  // Set the double push period to 500ms
+    RGBEncoder.begin(
+        i2cEncoderLibV2::INT_DATA |
+        i2cEncoderLibV2::WRAP_DISABLE |
+        i2cEncoderLibV2::DIRE_RIGHT |
+        i2cEncoderLibV2::IPUP_ENABLE |
+        i2cEncoderLibV2::RMOD_X1 |
+        i2cEncoderLibV2::RGB_ENCODER);
+    RGBEncoder.id = 0;                      // do we need this?
+    RGBEncoder.writeAntibouncingPeriod(25); // 250ms of debouncing
+    RGBEncoder.writeDoublePushPeriod(100);  // Set the double push period to 500ms
 
-        /* Configure the events */
-        RGBEncoder[enc_cnt].onChange = encoder_rotated;
-        RGBEncoder[enc_cnt].onButtonRelease = encoder_click;
-        RGBEncoder[enc_cnt].onMinMax = encoder_thresholds;
-        RGBEncoder[enc_cnt].onFadeProcess = encoder_fade;
-        RGBEncoder[enc_cnt].onButtonDoublePush = encoder_doubleclick;
+    /* Configure the events */
+    RGBEncoder.onChange = encoder_rotated;
+    RGBEncoder.onButtonRelease = encoder_click;
+    RGBEncoder.onMinMax = encoder_thresholds;
+    RGBEncoder.onFadeProcess = encoder_fade;
+    RGBEncoder.onButtonDoublePush = encoder_doubleclick;
 
-        /* Enable the I2C Encoder V2 interrupts according to the previus attached callback */
-        RGBEncoder[enc_cnt].autoconfigInterrupt();
-    }
+    /* Enable the I2C Encoder V2 interrupts according to the previus attached callback */
+    RGBEncoder.autoconfigInterrupt();
 
-    RGBEncoder[ENC_ID].writeCounter((int32_t)ENCODER_DEFAULT);
-    RGBEncoder[ENC_ID].writeMax((int32_t)ENCODER_MAX);
-    RGBEncoder[ENC_ID].writeMin((int32_t)ENCODER_MIN);
-    RGBEncoder[ENC_ID].writeStep((int32_t)ENCODER_STEP);
+    RGBEncoder.writeCounter((int32_t)ENCODER_DEFAULT);
+    RGBEncoder.writeMax((int32_t)ENCODER_MAX);
+    RGBEncoder.writeMin((int32_t)ENCODER_MIN);
+    RGBEncoder.writeStep((int32_t)ENCODER_STEP);
 }
 
 void readEncoders()
@@ -53,15 +47,11 @@ void readEncoders()
 
     if (digitalRead(I2C_INT_PIN) == LOW)
     {
-        // Interrupt from the encoders, start to scan the encoder matrix
-        for (enc_cnt = 0; enc_cnt < NUM_ENCODERS; enc_cnt++)
-        {
-            if (digitalRead(I2C_INT_PIN) == HIGH)
-            { // If the interrupt pin return high, exit from the encoder scan
-                break;
-            }
-            RGBEncoder[enc_cnt].updateStatus();
+        if (digitalRead(I2C_INT_PIN) == HIGH)
+        { // If the interrupt pin return high, exit from the encoder scan
+            return;
         }
+        RGBEncoder.updateStatus();
     }
 }
 
@@ -122,5 +112,5 @@ void encoderColorFeedback(i2cEncoderLibV2 *obj, EncoderEvent event)
 
 void setBrightness(int brightness)
 {
-    RGBEncoder[ENC_ID].writeCounter((int32_t)brightness);
+    RGBEncoder.writeCounter((int32_t)brightness);
 }

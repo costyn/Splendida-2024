@@ -24,8 +24,6 @@ typedef enum
 #define I2C_SCL_PIN 19 // Choose your SCL pin
 #define I2C_INT_PIN 22 // Choose your INT pin
 
-#define NUM_ENCODERS 1 // Number of encoders
-
 #define ENC_ID 0
 #define ENCODER_ADDRESS 0x28
 #define ENCODER_MIN 0
@@ -33,7 +31,7 @@ typedef enum
 #define ENCODER_STEP 1
 #define ENCODER_DEFAULT 150
 
-static i2cEncoderLibV2 RGBEncoder[NUM_ENCODERS] = {i2cEncoderLibV2(ENCODER_ADDRESS)};
+static i2cEncoderLibV2 RGBEncoder = i2cEncoderLibV2(ENCODER_ADDRESS);
 
 void encoderSetup();
 void readEncoders();
