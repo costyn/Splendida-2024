@@ -41,10 +41,10 @@ void encoderSetup()
         RGBEncoder[enc_cnt].autoconfigInterrupt();
     }
 
-    RGBEncoder[ENC_BRIGHTNESS_ID].writeCounter((int32_t)ENC_BRIGHTNESS_DEFAULT);
-    RGBEncoder[ENC_BRIGHTNESS_ID].writeMax((int32_t)ENC_BRIGHTNESS_MAX);
-    RGBEncoder[ENC_BRIGHTNESS_ID].writeMin((int32_t)ENC_BRIGHTNESS_MIN);
-    RGBEncoder[ENC_BRIGHTNESS_ID].writeStep((int32_t)ENC_BRIGHTNESS_STEP);
+    RGBEncoder[ENC_ID].writeCounter((int32_t)ENCODER_DEFAULT);
+    RGBEncoder[ENC_ID].writeMax((int32_t)ENCODER_MAX);
+    RGBEncoder[ENC_ID].writeMin((int32_t)ENCODER_MIN);
+    RGBEncoder[ENC_ID].writeStep((int32_t)ENCODER_STEP);
 }
 
 void readEncoders()
@@ -108,11 +108,11 @@ void encoderColorFeedback(i2cEncoderLibV2 *obj, EncoderEvent event)
 {
     if (event == ROTATE)
     {
-        obj->writeRGBCode(0x00FF00);
+        obj->writeRGBCode(0xFFFFFF);
     }
     if (event == CLICK)
     {
-        obj->writeRGBCode(0x0000FF);
+        obj->writeRGBCode(0x00FFFF);
     }
     if (event == LIMIT)
     {
@@ -122,5 +122,5 @@ void encoderColorFeedback(i2cEncoderLibV2 *obj, EncoderEvent event)
 
 void setBrightness(int brightness)
 {
-    RGBEncoder[ENC_BRIGHTNESS_ID].writeCounter((int32_t)brightness);
+    RGBEncoder[ENC_ID].writeCounter((int32_t)brightness);
 }

@@ -15,38 +15,25 @@ typedef enum
 typedef enum
 {
     BRIGHTNESS,
-    BPM,
+    SPEED,
     ROTATION,
     PRESET,
 } EncoderState;
 
-#define I2C_SDA_PIN 19 // Choose your SDA pin
-#define I2C_SCL_PIN 22 // Choose your SCL pin
-#define I2C_INT_PIN 23 // Choose your INT pin
+#define I2C_SDA_PIN 23 // Choose your SDA pin
+#define I2C_SCL_PIN 19 // Choose your SCL pin
+#define I2C_INT_PIN 22 // Choose your INT pin
 
 #define NUM_ENCODERS 1 // Number of encoders
 
-#define ENC_BRIGHTNESS_ID 0
-#define ENC_BRIGHTNESS_ADDRESS 0x20
-#define ENC_BRIGHTNESS_NAME "brightness"
-#define ENC_BRIGHTNESS_MIN 0
-#define ENC_BRIGHTNESS_MAX 254
-#define ENC_BRIGHTNESS_STEP 5
-#define ENC_BRIGHTNESS_DEFAULT 150
-#define ENC_BRIGHTNESS_CONFIRM false
-#define ENC_BRIGHTNESS_PUSH "power"
+#define ENC_ID 0
+#define ENCODER_ADDRESS 0x28
+#define ENCODER_MIN 0
+#define ENCODER_MAX 254
+#define ENCODER_STEP 1
+#define ENCODER_DEFAULT 150
 
-static const String encoderNames[NUM_ENCODERS] PROGMEM = {ENC_BRIGHTNESS_NAME};
-static const bool encoderConfirm[NUM_ENCODERS] PROGMEM = {ENC_BRIGHTNESS_CONFIRM};
-
-// Class initialization with the I2C addresses
-//  i2cEncoderLibV2 RGBEncoder[ENCODER_N] = { i2cEncoderLibV2(0x40),
-//                                            i2cEncoderLibV2(0x20), i2cEncoderLibV2(0x60), i2cEncoderLibV2(0x10),
-//                                            i2cEncoderLibV2(0x50), i2cEncoderLibV2(0x30), i2cEncoderLibV2(0x70),
-//                                            i2cEncoderLibV2(0x04), i2cEncoderLibV2(0x44),
-//  };
-
-static i2cEncoderLibV2 RGBEncoder[NUM_ENCODERS] = {i2cEncoderLibV2(ENC_BRIGHTNESS_ADDRESS)};
+static i2cEncoderLibV2 RGBEncoder[NUM_ENCODERS] = {i2cEncoderLibV2(ENCODER_ADDRESS)};
 
 void encoderSetup();
 void readEncoders();
