@@ -20,6 +20,7 @@
 #include <TaskScheduler.h>
 
 #include "tables.h"
+#include "palettes.h"
 
 // Emulator
 #ifndef M5ATOM
@@ -76,6 +77,7 @@ extern uint8_t g_currentBrightness;
 extern uint8_t g_fadeState;
 extern CRGB leds[NUM_LEDS];
 extern const char *patternNames[];
+extern uint8_t gCurrentPaletteNumber;
 
 extern uint8_t g_fadeStartBrightness;
 extern uint8_t g_fadeTargetBrightness;

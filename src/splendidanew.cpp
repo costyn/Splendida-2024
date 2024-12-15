@@ -18,8 +18,6 @@
 uint8_t g_targetBrightness = 0;
 uint8_t g_currentBrightness = 0;
 float g_animationSpeed = 0.2f;
-CRGBPalette16 gCurrentPalette;
-CRGBPalette16 gTargetPalette;
 float g_timeAccumulator = 0.0f;
 uint8_t gCurrentPatternNumber = 0;
 CRGB g_statusLed[1];

@@ -14,6 +14,8 @@
 
 extern SimplePatternList gPatterns;
 
+byte rain[(NUM_COLS_PLANAR + 2) * (NUM_ROWS_PLANAR + 2)];
+
 void SoftTwinkles();
 void cylindrical_Pattern();
 void FireComets();
