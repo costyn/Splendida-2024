@@ -17,7 +17,6 @@
 
 #include <Arduino.h>
 #include <FastLED.h>
-#include <TaskScheduler.h>
 
 #include "tables.h"
 #include "palettes.h"

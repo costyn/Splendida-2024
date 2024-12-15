@@ -13,6 +13,7 @@
 // double click change bright in loop 0..maxbright with 7 steps. not affect to Automode
 // long press activate Automode ON
 
+#include <TaskScheduler.h>
 #include "splendidanew.h"
 
 uint8_t g_targetBrightness = 0;
