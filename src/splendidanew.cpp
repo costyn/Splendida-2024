@@ -171,7 +171,7 @@ void fade()
       _taskFade.disable();
 
       // Change pattern here
-      gCurrentPatternNumber = (gCurrentPatternNumber + 1) % ARRAY_SIZE(gPatterns);
+      gCurrentPatternNumber = (gCurrentPatternNumber + 1) % NUM_PATTERNS;
       g_patternInitNeeded = 1;
       printPatternAndPalette();
 

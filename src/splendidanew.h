@@ -21,6 +21,7 @@
 
 #include "tables.h"
 #include "palettes.h"
+// #include "patterns.h"
 
 // Emulator
 #ifndef M5ATOM
@@ -54,11 +55,16 @@
 
 #define NUM_LEDS 256
 
+#define MAX_ANIMATION_SPEED 0.4f
+#define MIN_ANIMATION_SPEED -0.4f
+
 // Animation Constants
 #define SECONDS_PER_PALETTE 20
 #define SECONDS_PER_PATTERN 60
 #define BLEND_SPEED 16
 #define BLEND_INTERVAL_MS 40
+
+#define NUM_PATTERNS 25
 
 typedef void (*SimplePatternList[])();
 

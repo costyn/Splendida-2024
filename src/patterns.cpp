@@ -1216,7 +1216,6 @@ void hypnoticWaves()
 
 // array pointers to used patterns______________________
 
-#define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
 // List of patterns to cycle through.  Each is defined as a separate function below.
 SimplePatternList gPatterns = // this is list of patterns
     {
