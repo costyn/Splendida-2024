@@ -1,5 +1,5 @@
-#ifndef SPLENDIDA_H
-#define SPLENDIDA_H
+#ifndef SPLENDIDANEW_H
+#define SPLENDIDANEW_H
 
 // Splendida 256 NEW demoreel with palletes
 // fastled fibonacci 256 leds demo
@@ -18,7 +18,8 @@
 #include <Arduino.h>
 #include <FastLED.h>
 #include <TaskScheduler.h>
-#include "encoders.h"
+
+#include "tables.h"
 
 // Emulator
 #ifndef M5ATOM
@@ -58,30 +59,27 @@
 #define BLEND_SPEED 16
 #define BLEND_INTERVAL_MS 40
 
-uint8_t calculatePowerScaledBrightness(uint8_t targetBrightness);
+typedef void (*SimplePatternList[])();
 
-uint16_t g_lastSafeIndex = 256;
+// Extern declarations of global variables
+extern uint8_t g_targetBrightness;
+extern uint8_t g_lastSafeIndex;
+extern float g_animationSpeed;
+extern CRGBPalette16 gCurrentPalette;
+extern CRGBPalette16 gTargetPalette;
+extern float g_timeAccumulator;
+extern SimplePatternList gPatterns;
+extern uint8_t gCurrentPatternNumber;
+extern CRGB g_statusLed[];
+extern byte g_patternInitNeeded;
+extern uint8_t g_currentBrightness;
+extern uint8_t g_fadeState;
+extern CRGB leds[NUM_LEDS];
+extern const char *patternNames[];
 
-CRGB leds[NUM_LEDS + 1];
-CRGB g_statusLed[1];
-
-byte rain[(NUM_COLS_PLANAR + 2) * (NUM_ROWS_PLANAR + 2)];
-
-byte g_patternInitNeeded = 1;
-
-uint8_t g_fadeStartBrightness = 0;
-uint8_t g_fadeTargetBrightness = 0;
-uint8_t g_fadeCurrentBrightness = 0;
-
-uint8_t g_currentBrightness = 0; // start dark
-uint8_t g_targetBrightness = g_currentBrightness;
-
-uint8_t gCurrentPatternNumber = 0; // Index number of which pattern is current
-
-#define MAX_ANIMATION_SPEED 0.4f
-#define MIN_ANIMATION_SPEED -0.4f
-float g_timeAccumulator = 0.0f;
-float g_animationSpeed = 0.2f; // Between -0.4 and 0.4
+extern uint8_t g_fadeStartBrightness;
+extern uint8_t g_fadeTargetBrightness;
+extern uint8_t g_fadeCurrentBrightness;
 
 float fmap(float x, float a, float b, float c, float d);
 
@@ -92,20 +90,12 @@ enum FadeState
     FADING_IN
 };
 
-FadeState g_fadeState = FADE_NONE;
-
 void changeToBrightness();
 void runPattern();
 
-static void oneClick();
-static void doubleClick();
-static void longPress();
 void fadeOut();
 void fadeIn();
 std::string timeToString();
-
-#include "palettes.h"
-#include "tables.h"
 
 // Function Prototypes
 void initializeGPIO();
@@ -133,8 +123,5 @@ Task _taskChangePattern(SECONDS_PER_PATTERN *TASK_SECOND, TASK_FOREVER, &changeP
 Task _taskBlendPalette(BLEND_INTERVAL_MS *TASK_MILLISECOND, TASK_FOREVER, &blendPalette);
 Task _taskFade(10 * TASK_MILLISECOND, TASK_FOREVER, &fade);
 Task _taskReadEncoders(10 * TASK_MILLISECOND, TASK_FOREVER, &readEncoders);
-
-#include "patterns.h"
-#include "encoders.h"
 
 #endif

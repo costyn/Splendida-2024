@@ -29,11 +29,13 @@ typedef enum
 #define ENCODER_STEP 1
 #define ENCODER_DEFAULT 150
 
-static i2cEncoderLibV2 RGBEncoder = i2cEncoderLibV2(ENCODER_ADDRESS);
+// Forward Declarations
 extern EncoderState g_encoderState;
+extern uint8_t g_targetBrightness;
+extern float g_animationSpeed;
+
 
 // Function Prototypes
-
 void encoder_onChange(i2cEncoderLibV2 *obj);
 void encoder_onButtonPush(i2cEncoderLibV2 *obj);
 void encoder_onMinMax(i2cEncoderLibV2 *obj);
@@ -47,7 +49,5 @@ void setBrightness(int brightness);
 void changePattern();
 std::string timeToString();
 
-extern uint8_t g_targetBrightness;
-extern float g_animationSpeed;
 
 #endif

@@ -15,9 +15,26 @@
 
 #include "splendidanew.h"
 
+uint8_t g_targetBrightness = 0;
+uint8_t g_currentBrightness = 0;
+float g_animationSpeed = 0.2f;
+CRGBPalette16 gCurrentPalette;
+CRGBPalette16 gTargetPalette;
+float g_timeAccumulator = 0.0f;
+uint8_t gCurrentPatternNumber = 0;
+CRGB g_statusLed[1];
+byte g_patternInitNeeded = 1;
+uint8_t g_fadeState = FADE_NONE;
+CRGB leds[NUM_LEDS];
+uint8_t g_lastSafeIndex = 255;
+uint8_t g_fadeStartBrightness = 0;
+uint8_t g_fadeTargetBrightness = 0;
+uint8_t g_fadeCurrentBrightness = 0;
+
 // Setup function
 void setup()
 {
+
   initializeSerial();
   initializeLEDs();
   encoderSetup();
@@ -109,6 +126,7 @@ void blendPalette()
   nblendPaletteTowardPalette(gCurrentPalette, gTargetPalette, BLEND_SPEED);
 }
 
+// TODO
 static void oneClick()
 {
   constexpr const char *SGN = "oneClick()";
@@ -120,6 +138,7 @@ static void oneClick()
   g_statusLed[0].setHue(0);
 }
 
+// TODO
 static void longPress()
 {
   constexpr const char *SGN = "longPress()";

@@ -1,10 +1,14 @@
 #include "encoders.h"
+#include "splendidanew.h"
 
 /*
     encoderSetup
     Initialize the I2C encoders with the custom pins
 
 */
+
+static i2cEncoderLibV2 RGBEncoder = i2cEncoderLibV2(ENCODER_ADDRESS);
+extern EncoderState g_encoderState;
 
 EncoderState g_encoderState = BRIGHTNESS; // default state
 
