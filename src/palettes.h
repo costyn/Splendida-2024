@@ -16,9 +16,10 @@ extern const TProgmemRGBGradientPaletteRef gGradientPalettes[];
 // are at the bottom of this file.
 extern const uint8_t gGradientPaletteCount;
 // Current palette number from the 'playlist' of color palettes
-extern uint8_t gCurrentPaletteNumber = 0;
-extern CRGBPalette16 gCurrentPalette(CRGB::Black);
+extern uint8_t gCurrentPaletteNumber;
+extern CRGBPalette16 gCurrentPalette;
 // CRGBPalette16 gTargetPalette ( gGradientPalettes[random8(gGradientPaletteCount)] );
 extern CRGBPalette16 gTargetPalette; // move initialisation with random8 to setup()
+extern const char *paletteNames[];
 
 #endif

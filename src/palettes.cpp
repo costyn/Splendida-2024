@@ -1,5 +1,8 @@
 #include "palettes.h"
 
+uint8_t gCurrentPaletteNumber = 0;
+CRGBPalette16 gCurrentPalette(CRGB::Black);
+
 // Gradient palette "es_pinksplash_07_gp", originally from
 // http://soliton.vm.bytemark.co.uk/pub/cpt-city/es/pink_splash/tn/es_pinksplash_07.png.index.html
 // converted for FastLED with gammas (2.6, 2.2, 2.5)

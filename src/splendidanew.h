@@ -17,6 +17,7 @@
 
 #include <Arduino.h>
 #include <FastLED.h>
+#include <TaskScheduler.h> // Include TaskScheduler for Task definitions
 
 #include "tables.h"
 #include "palettes.h"
@@ -97,6 +98,15 @@ enum FadeState
     FADING_IN
 };
 
+extern Scheduler _runner;
+extern Task _taskChangeToBrightness;
+extern Task _taskRunPattern;
+extern Task _taskChangePalette;
+extern Task _taskChangePattern;
+extern Task _taskBlendPalette;
+extern Task _taskFade;
+extern Task _taskReadEncoders;
+
 void changeToBrightness();
 void runPattern();
 
@@ -122,13 +132,4 @@ void fade();
 void readEncoders();
 void encoderSetup();
 
-Scheduler _runner;
-Task _taskChangeToBrightness(10 * TASK_MILLISECOND, TASK_FOREVER, &changeToBrightness);
-Task _taskRunPattern(1 * TASK_MILLISECOND, TASK_FOREVER, &runPattern);
-Task _taskChangePalette(SECONDS_PER_PALETTE *TASK_SECOND, TASK_FOREVER, &changePalette);
-Task _taskChangePattern(SECONDS_PER_PATTERN *TASK_SECOND, TASK_FOREVER, &changePattern);
-Task _taskBlendPalette(BLEND_INTERVAL_MS *TASK_MILLISECOND, TASK_FOREVER, &blendPalette);
-Task _taskFade(10 * TASK_MILLISECOND, TASK_FOREVER, &fade);
-Task _taskReadEncoders(10 * TASK_MILLISECOND, TASK_FOREVER, &readEncoders);
-
-#endif
+#endif // SPLENDIDANEW_H

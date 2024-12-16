@@ -13,7 +13,6 @@
 // double click change bright in loop 0..maxbright with 7 steps. not affect to Automode
 // long press activate Automode ON
 
-#include <TaskScheduler.h>
 #include "splendidanew.h"
 
 uint8_t g_targetBrightness = 0;
@@ -29,6 +28,15 @@ uint8_t g_lastSafeIndex = 255;
 uint8_t g_fadeStartBrightness = 0;
 uint8_t g_fadeTargetBrightness = 0;
 uint8_t g_fadeCurrentBrightness = 0;
+
+Scheduler _runner;
+Task _taskChangeToBrightness(10 * TASK_MILLISECOND, TASK_FOREVER, &changeToBrightness);
+Task _taskRunPattern(1 * TASK_MILLISECOND, TASK_FOREVER, &runPattern);
+Task _taskChangePalette(SECONDS_PER_PALETTE *TASK_SECOND, TASK_FOREVER, &changePalette);
+Task _taskChangePattern(SECONDS_PER_PATTERN *TASK_SECOND, TASK_FOREVER, &changePattern);
+Task _taskBlendPalette(BLEND_INTERVAL_MS *TASK_MILLISECOND, TASK_FOREVER, &blendPalette);
+Task _taskFade(10 * TASK_MILLISECOND, TASK_FOREVER, &fade);
+Task _taskReadEncoders(10 * TASK_MILLISECOND, TASK_FOREVER, &readEncoders);
 
 // Setup function
 void setup()
