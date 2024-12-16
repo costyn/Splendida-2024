@@ -1,5 +1,4 @@
 #include "encoders.h"
-#include "splendidanew.h"
 
 /*
     encoderSetup

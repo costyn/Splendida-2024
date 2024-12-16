@@ -10,7 +10,9 @@
 #include <Arduino.h>
 #include <FastLED.h>
 
-#include "splendidanew.h"
+#include "globals.h"
+#include "tasks.h" // Add tasks.h include
+#include "tables.h"
 
 extern SimplePatternList gPatterns;
 
