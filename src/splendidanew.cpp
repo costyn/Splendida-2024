@@ -14,8 +14,9 @@
 // long press activate Automode ON
 
 #include "splendidanew.h"
+#include "encoders.h"
 
-uint8_t g_targetBrightness = 0;
+uint8_t g_targetBrightness = DEFAULT_BRIGHTNESS;
 uint8_t g_currentBrightness = 0;
 float g_animationSpeed = 0.2f;
 float g_timeAccumulator = 0.0f;
@@ -37,7 +38,7 @@ Task _taskChangePalette(SECONDS_PER_PALETTE *TASK_SECOND, TASK_FOREVER, &changeP
 Task _taskChangePattern(SECONDS_PER_PATTERN *TASK_SECOND, TASK_FOREVER, &changePattern);
 Task _taskBlendPalette(BLEND_INTERVAL_MS *TASK_MILLISECOND, TASK_FOREVER, &blendPalette);
 Task _taskFade(10 * TASK_MILLISECOND, TASK_FOREVER, &fade);
-Task _taskReadEncoders(10 * TASK_MILLISECOND, TASK_FOREVER, &readEncoders);
+Task _taskReadEncoders(5 * TASK_MILLISECOND, TASK_FOREVER, &readEncoders);
 
 // Setup function
 void setup()

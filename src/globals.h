@@ -26,7 +26,10 @@
 #define COLOR_ORDER GRB  // color order of leds
 
 #define MAX_POWER_MILLIAMPS 800 // write here your power in milliamps. default i set 800 mA for safety
+#define MIN_BRIGHTNESS 1        // min brightness of leds
 #define MAX_BRIGHTNESS 100      // max brightness of leds - will be limited by max power
+#define BRIGHNESS_STEP 3        // brightness step
+#define DEFAULT_BRIGHTNESS 100  // default brightness
 
 #define NUM_COLS_PLANAR 20 // resolution of planar lookup table
 #define NUM_ROWS_PLANAR 20 // resolution of planar lookup table

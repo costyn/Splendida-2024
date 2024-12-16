@@ -68,13 +68,14 @@ void encoder_onChange(i2cEncoderLibV2 *obj)
     case BRIGHTNESS:
         if (increasing)
         {
-            g_targetBrightness = min(255, g_targetBrightness + 5);
+            g_targetBrightness = min(MAX_BRIGHTNESS, g_targetBrightness + BRIGHNESS_STEP);
         }
         else
         {
-            g_targetBrightness = max(0, g_targetBrightness - 5);
+            g_targetBrightness = max(MIN_BRIGHTNESS, g_targetBrightness - BRIGHNESS_STEP);
         }
         Serial.printf("%s: Brightness target: %d\n", SGN, g_targetBrightness);
+        _taskChangeToBrightness.enableIfNot();
         break;
 
     case SPEED:
@@ -98,6 +99,7 @@ void encoder_onChange(i2cEncoderLibV2 *obj)
 void encoder_onButtonPush(i2cEncoderLibV2 *obj)
 {
     constexpr const char *SGN = "encoder_onButtonPush()";
+    Serial.printf("%s: %s: EncoderState: %s\n", timeToString().c_str(), SGN, g_encoderState);
 
     switch (g_encoderState)
     {

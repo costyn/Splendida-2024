@@ -3,7 +3,9 @@
 
 #include <i2cEncoderLibV2.h>
 #include <Wire.h>
-#
+
+#include "globals.h"
+
 typedef enum
 {
     ROTATE,
@@ -33,7 +35,7 @@ typedef enum
 extern EncoderState g_encoderState;
 extern uint8_t g_targetBrightness;
 extern float g_animationSpeed;
-
+extern Task _taskChangeToBrightness; // Declare the external task
 
 // Function Prototypes
 void encoder_onChange(i2cEncoderLibV2 *obj);
@@ -48,6 +50,5 @@ void setBrightness(int brightness);
 
 void changePattern();
 std::string timeToString();
-
 
 #endif
