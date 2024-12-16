@@ -2,7 +2,7 @@
 #ifndef TASKS_H
 #define TASKS_H
 
-#include "taskscheduler_wrapper.h"
+#include <TaskScheduler.h>
 
 extern Scheduler _runner;
 extern Task _taskChangeToBrightness;

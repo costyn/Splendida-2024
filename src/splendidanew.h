@@ -16,7 +16,7 @@
 #define M5ATOM
 
 #include "globals.h"
-#include "taskscheduler_wrapper.h" // Instead of <TaskScheduler.h>
+// #include "taskscheduler_wrapper.h" // Instead of <TaskScheduler.h>
 #include "tables.h"
 #include "palettes.h"
 

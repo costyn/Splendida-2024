@@ -4,6 +4,7 @@
 
 #include <Arduino.h>
 #include <FastLED.h>
+#include <TaskSchedulerDeclarations.h>
 
 // Emulator
 #ifndef M5ATOM
