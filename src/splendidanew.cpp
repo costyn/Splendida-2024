@@ -28,6 +28,7 @@ uint8_t g_lastSafeIndex = 255;
 uint8_t g_fadeStartBrightness = 0;
 uint8_t g_fadeTargetBrightness = 0;
 uint8_t g_fadeCurrentBrightness = 0;
+CRGBPalette16 gTargetPalette = gGradientPalettes[random8(gGradientPaletteCount)]; // Choose random palette on start
 
 Scheduler _runner;
 Task _taskChangeToBrightness(10 * TASK_MILLISECOND, TASK_FOREVER, &changeToBrightness);
